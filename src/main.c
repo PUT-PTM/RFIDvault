@@ -12,6 +12,7 @@
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
 #include "stm32f4_flash.h"
+#include <servo.h>
 
 //void RGB();
 //void SetSERWO();
@@ -24,19 +25,23 @@ int codeInitFlash, codeWriteFlash;
 
 uint16_t data[10];
 int main(void) {
-	codeInitFlash = Internal_FLASH_Init();
-	uint16_t* data_ptr = data;
+	/*
+	 codeInitFlash = Internal_FLASH_Init();
+	 uint16_t* data_ptr = data;
 
-	if (codeInitFlash == 1) {
-		uint16_t writeData = 1;
+	 if (codeInitFlash == 1) {
+	 uint16_t writeData = 1;
 
-		codeWriteFlash = Internal_FLASH_Write(1, writeData);
-		for (int i = 0; i < 10; i++) {
-			data[i] = Internal_FLASH_Read(i);
-			data_ptr++;
-		}
-	}
+	 codeWriteFlash = Internal_FLASH_Write(1, writeData);
+	 for (int i = 0; i < 10; i++) {
+	 data[i] = Internal_FLASH_Read(i);
+	 data_ptr++;
+	 }
+	 }
+	 */
 
+	servoInit();
+	servoSetDuty(50);
 	while (1)
 		;
 
