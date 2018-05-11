@@ -42,6 +42,9 @@ int main(void) {
 
 	servoInit();
 	servoSetDuty(50);
+
+	setLED(1);
+
 	while (1)
 		;
 
