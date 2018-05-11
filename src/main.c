@@ -20,17 +20,21 @@ uint8_t CardID[5];
 
 uint8_t CardID_a, CardID_b, CardID_c, CardID_d, CardID_e;
 
-int codeFlash;
+int codeInitFlash, codeWriteFlash;
 
-uint16_t data;
+uint16_t data[10];
 int main(void) {
-	codeFlash = Internal_FLASH_Init();
+	codeInitFlash = Internal_FLASH_Init();
+	uint16_t* data_ptr = data;
 
-	if (codeFlash == 1) {
+	if (codeInitFlash == 1) {
 		uint16_t writeData = 1;
 
-		codeFlash = Internal_FLASH_Write(1, writeData);
-		data = Internal_FLASH_Read(1);
+		codeWriteFlash = Internal_FLASH_Write(1, writeData);
+		for (int i = 0; i < 10; i++) {
+			data[i] = Internal_FLASH_Read(i);
+			data_ptr++;
+		}
 	}
 
 	while (1)
