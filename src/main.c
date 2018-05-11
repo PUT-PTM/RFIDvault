@@ -14,7 +14,7 @@
 #include "stm32f4_flash.h"
 
 void RGB();
-void SetSERWO();
+//void SetSERWO();
 
 uint8_t CardID[5];
 
@@ -34,7 +34,8 @@ int main(void) {
 
 	return 0;
 }
-
+/*
 void RGB() {
 
 }
+*/
