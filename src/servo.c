@@ -38,3 +38,29 @@ void servoSetDuty(unsigned int duty) {
 	SERVO_TIMER->SERVO_TIMER_CHANEL = (uint32_t) (5000)
 			* (duty / 100);
 }
+
+//R - 0 PD12
+//G - 1 PD13
+//B - 2 PD14
+void setLED(int whichLED){
+	if(whichLED==0){
+		TIM4->CCR1 = 8400;
+			TIM4->CCR2 = 0;
+			TIM4->CCR3 = 0;
+	}
+	else if(whichLED==1){
+		TIM4->CCR1 = 0;
+			TIM4->CCR2 = 8400;
+			TIM4->CCR3 = 0;
+	}
+	else if(whichLED==2){
+		TIM4->CCR1 = 0;
+			TIM4->CCR2 = 0;
+			TIM4->CCR3 = 8400;
+	}
+	else{
+		TIM4->CCR1 = 0;
+			TIM4->CCR2 = 0;
+			TIM4->CCR3 = 0;
+	}
+}
