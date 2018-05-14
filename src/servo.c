@@ -54,12 +54,12 @@ void servoSetDuty(unsigned int duty) {
 	TIM_SetCompare4(SERVO_TIMER, duty);
 }
 
-int openServo() {
-	return 0;
+void openServo() {
+	servoSetDuty(SERVO_0_ANGLE);
 }
 
-int closeServo() {
-	return 0;
+void closeServo() {
+	servoSetDuty(SERVO_120_ANGLE);
 }
 
 void setLED(int whichLED) {

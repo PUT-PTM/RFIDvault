@@ -14,6 +14,8 @@
 #define SERVO_GPIO_PORT GPIOD
 #define SERVO_GPIO_PIN_SOURCE GPIO_PinSource15
 #define SERVO_GPIO_PIN GPIO_Pin_15
+#define SERVO_0_ANGLE 600
+#define SERVO_120_ANGLE 1800
 
 #define LED_GPIO_RCC RCC_AHB1Periph_GPIOD
 #define LED_1 GPIO_Pin_12
@@ -26,8 +28,8 @@
 void servoInit();
 void servoSetDuty(unsigned int duty);
 
-int openServo();
-int closeServo();
+void openServo();
+void closeServo();
 
 //R - 0 PD12
 //G - 1 PD13
