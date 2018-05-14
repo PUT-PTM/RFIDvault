@@ -42,13 +42,13 @@ int main(void) {
 	 */
 
 	servoInit();
-	servoSetDuty(5000);
+	servoSetDuty(600);
 
 	ledInit();
 	setLED(0);
 
 	while (1) {
-		servoSetDuty(5000);
+		//servoSetDuty(40);
 	}
 
 	return 0;

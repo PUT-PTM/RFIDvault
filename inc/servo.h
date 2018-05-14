@@ -2,7 +2,7 @@
 #define __servo_H
 
 #define SERVO_TIMER_RCC RCC_APB1Periph_TIM4
-#define TIMER_PERIOD 5000
+#define TIMER_PERIOD 20000
 #define TIMER_PRESCALER 84
 #define SERVO_TIMER TIM4
 #define SERVO_TIMER_GPIO GPIO_AF_TIM4

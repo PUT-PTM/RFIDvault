@@ -29,7 +29,7 @@ void servoInit() {
 	/* PWM2 Mode configuration: */
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-	TIM_OCInitStructure.TIM_Pulse = 1000;
+	TIM_OCInitStructure.TIM_Pulse = 600;
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
 
 	SERVO_TIMER_PWM_INIT(SERVO_TIMER, &TIM_OCInitStructure);
