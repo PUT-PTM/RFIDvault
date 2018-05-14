@@ -12,7 +12,3 @@ struct CardID readCard() {
 
 	return card;
 }
-
-int checkCart(struct CardID card) {
-
-}

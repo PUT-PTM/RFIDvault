@@ -14,10 +14,6 @@
 #include "stm32f4_flash.h"
 #include <servo.h>
 
-uint8_t CardID_a, CardID_b, CardID_c, CardID_d, CardID_e;
-
-int codeInitFlash, codeWriteFlash;
-
 uint16_t data[10];
 int main(void) {
 	/*
