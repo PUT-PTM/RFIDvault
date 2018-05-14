@@ -5,12 +5,12 @@
 
 struct CardID{
 	uint8_t a, b, c, d, e;
-
-	void (*setCardID)(int id[5]);
 };
 
 
 
 extern struct CardID readCard();
+
+int checkCart(struct CardID card);
 
 #endif /* __RFID_lib_H */
