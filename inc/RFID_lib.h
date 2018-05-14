@@ -7,7 +7,9 @@ struct CardID{
 	uint8_t a, b, c, d, e;
 };
 
-
+/*
+ * zczytywanie karty
+ */
 extern struct CardID readCard();
 
 #endif /* __RFID_lib_H */

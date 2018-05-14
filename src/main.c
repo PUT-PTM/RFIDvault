@@ -13,8 +13,9 @@
 #include "stm32f4_discovery.h"
 #include "stm32f4_flash.h"
 #include <servo.h>
+#include <buttons.h>
 
-uint16_t data[10];
+int licznik = 0;
 int main(void) {
 	/*
 	 codeInitFlash = Internal_FLASH_Init();
@@ -37,10 +38,19 @@ int main(void) {
 	ledInit();
 	setLED(0);
 
+	serviceButtonInit();
+
 	while (1) {
-		//servoSetDuty(40);
 	}
 
 	return 0;
 }
 
+
+void EXTI0_IRQHandler(void) {
+	if (EXTI_GetITStatus(EXTI_Line0) != RESET) {
+		licznik++;
+		// wyzerowanie flagi wyzwolonego przerwania
+		EXTI_ClearITPendingBit(EXTI_Line0);
+	}
+}
