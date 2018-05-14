@@ -15,7 +15,14 @@
 #include <servo.h>
 #include <buttons.h>
 
-int licznik = 0;
+int licznikExti0 = 0;
+int licznikTim2 = 0;
+int licznikExti4 = 0;
+
+int stateLock = 1; //0->open 1->close
+int timer2Run = 0; // 0 -> false; 1 -> true
+int elseMain = 0;
+
 int main(void) {
 	/*
 	 codeInitFlash = Internal_FLASH_Init();
@@ -40,30 +47,27 @@ int main(void) {
 	setLED(0);
 
 	serviceButtonInit();
-	//0->open 1->close
-	int stateLock = 1;
+	doorButtonInit();
 
 	while (1) {
-		//servoSetDuty(40);
 
 		if (stateLock == 1) {
 			//tryb otwartego sejfu
 
-			struct CardID currentCard = readCard();
+			struct CardID currentCard;
+			uint8_t id[5];
+			if (TM_MFRC522_Check(id) == MI_OK) {
+				struct CardID newCard = { id[0], id[1], id[2], id[3], id[4] };
+				currentCard = newCard;
 
-			if (checkCard(currentCard) == 0) {
-				openServo();
-				stateLock = 1;
+				int check = checkCard(currentCard);
+				if (check == 0) {
+					openServo();
+					stateLock = 0;
+				} else if (check == -1) {
+					elseMain++;
+				}
 			}
-		} else if (stateLock == 0) {
-			//tryb serwisowy
-
-			/*tutaj wklep sobie przerwania(StasiaXD), którymi bedziesz coœ tam serwisowa³ i jakiœ licznik, ¿e niby jak
-			 od 5 sekund jest zakmniêtye to sobie odpalaszto na dole
-			 if(przytrzymaniePrzyciskuCzyCoœCoTamOgarnie¯eZamknalesSejfXD==1){
-			 closeServo();
-			 stateLock=1;
-			 }*/
 		}
 	}
 	return 0;
@@ -71,8 +75,36 @@ int main(void) {
 
 void EXTI0_IRQHandler(void) {
 	if (EXTI_GetITStatus(EXTI_Line0) != RESET) {
-		licznik++;
+		struct CardID currentCard;
+		uint8_t id[5];
+		if (TM_MFRC522_Check(id) == MI_OK) {
+			struct CardID newCard = { id[0], id[1], id[2], id[3], id[4] };
+			currentCard = newCard;
+		}
+
+		if (addCardToFlash(currentCard) == 0)
+			licznikExti0++;
 		// wyzerowanie flagi wyzwolonego przerwania
 		EXTI_ClearITPendingBit(EXTI_Line0);
+	}
+}
+
+void TIM2_IRQHandler(void) {
+	if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET) {
+
+		licznikTim2++;
+		// wyzerowanie flagi wyzwolonego przerwania
+		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+	}
+}
+
+void EXTI4_IRQHandler(void) {
+	if (EXTI_GetITStatus(EXTI_Line4) != RESET) {
+		while (TIM_GetFlagStatus(TIM3, TIM_FLAG_Update))
+			;
+		TIM_ClearFlag(TIM3, TIM_FLAG_Update);
+		closeServo();
+		// wyzerowanie flagi wyzwolonego przerwania
+		EXTI_ClearITPendingBit(EXTI_Line4);
 	}
 }
