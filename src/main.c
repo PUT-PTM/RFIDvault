@@ -14,8 +14,9 @@
 #include "stm32f4_flash.h"
 #include <servo.h>
 
-//void RGB();
-//void SetSERWO();
+int checkCart(struct CardID card);
+void deleteAllCardsFromFlash();
+void addCardToFlash(struct CardID card);
 
 uint8_t CardID[5];
 
@@ -41,17 +42,15 @@ int main(void) {
 	 */
 
 	servoInit();
-	servoSetDuty(50);
+	servoSetDuty(5000);
 
-	setLED(1);
+	ledInit();
+	setLED(0);
 
-	while (1)
-		;
+	while (1) {
+		servoSetDuty(5000);
+	}
 
 	return 0;
 }
-/*
- void RGB() {
 
- }
- */
