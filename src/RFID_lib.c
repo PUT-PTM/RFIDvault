@@ -1,4 +1,5 @@
 #include <RFID_lib.h>
+#include <flashMock.h>
 
 struct CardID readCard() {
 	uint8_t id[5];
@@ -10,4 +11,8 @@ struct CardID readCard() {
 	}
 
 	return card;
+}
+
+int checkCart(struct CardID card) {
+
 }

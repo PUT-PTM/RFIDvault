@@ -8,9 +8,6 @@ struct CardID{
 };
 
 
-
 extern struct CardID readCard();
-
-int checkCart(struct CardID card);
 
 #endif /* __RFID_lib_H */
