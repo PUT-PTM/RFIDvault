@@ -55,11 +55,11 @@ void servoSetDuty(unsigned int duty) {
 }
 
 void openServo() {
-	servoSetDuty(SERVO_0_ANGLE);
+	servoSetDuty(SERVO_90_ANGLE);
 }
 
 void closeServo() {
-	servoSetDuty(SERVO_120_ANGLE);
+	servoSetDuty(SERVO_0_ANGLE);
 }
 
 void setLED(int whichLED) {
